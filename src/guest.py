@@ -4,6 +4,7 @@ class Guest:
         self.age = age
         self.money = money
         self.favourite_song = favourite_song
+        self.tab = 0
 
     def can_afford(self, fee):
         return self.money > fee

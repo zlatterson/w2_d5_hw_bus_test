@@ -2,6 +2,7 @@ import unittest
 from src.room import Room
 from src.guest import Guest
 from src.song import Song
+from src.bar import Bar
 
 class TestRoom(unittest.TestCase):
     def setUp(self):
@@ -19,6 +20,8 @@ class TestRoom(unittest.TestCase):
         self.room.add_song_to_room(self.song.band_name, self.song.song_name)
         self.room.add_song_to_room(self.song_2.band_name, self.song_2.song_name)
         self.room.add_song_to_room(self.song_3.band_name, self.song_3.song_name)
+
+        self.bar = Bar()
 
     def test_room_number(self):
         self.assertEqual(1, self.room.room_number)
@@ -51,7 +54,15 @@ class TestRoom(unittest.TestCase):
         self.assertEqual(self.room.display_playlist(self.guest_2), "That's my favourite song!")
 
 
-    # def test_add_money(self):
-        
+    def test_bar_request(self):
+        self.room.bar_request(self.guest, "vodka", self.bar.drinks)
+        self.room.bar_request(self.guest_3, "beer", self.bar.drinks)
+        self.assertEqual(95, self.guest.money)
+        self.assertEqual(5, self.room.money)
+
+        self.room.bar_request(self.guest, "vodka", self.bar.drinks)
+        self.room.bar_request(self.guest, "vodka", self.bar.drinks)
+        self.room.bar_request(self.guest_2, "beer", self.bar.drinks)
+
 
     
