@@ -3,7 +3,7 @@ from datetime import datetime
 class Room:
     def __init__(self, room_number):
         self.room_number = room_number
-        # self.max_guests = 8
+        self.max_guests = 8
         self.guests = []
         self.songs = {}
         self.entry_fee = 10
@@ -11,7 +11,7 @@ class Room:
         self.tab = {}
 
     def check_if_free_space(self):
-        if len(self.guests) > 4:
+        if len(self.guests) > self.max_guests:
             print("Sorry, max 3 people")
             return False
         return True
@@ -24,9 +24,8 @@ class Room:
             self.add_money(self.entry_fee)
 
     def add_song_to_room(self, band, song):
-        temp_dict = self.songs
-        temp_dict.setdefault(band,[])
-        temp_dict[band].append(song)
+        self.songs.setdefault(band,[])
+        self.songs[band].append(song)
 
     def display_playlist(self, guest):
         reaction = guest.check_playlist(self.songs)
@@ -45,9 +44,8 @@ class Room:
 
                     cost_and_date = drink_list[drink], now.strftime("%H:%M")
 
-                    temp_dict = self.tab
-                    temp_dict.setdefault(guest.name,[])
-                    temp_dict[guest.name].append(cost_and_date)
+                    self.tab.setdefault(guest.name,[])
+                    self.tab[guest.name].append(cost_and_date)
         print(self.tab)
 
 
